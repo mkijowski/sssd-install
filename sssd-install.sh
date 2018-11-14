@@ -19,7 +19,8 @@ ln -s /bin/bash /bin/tcsh
 
 #check if dir exists
 mkdir /etc/sssd
-touch /etc/sssd/sssd.conf
+#touch /etc/sssd/sssd.conf
+cp /home/conf/sssd.conf /etc/sssd/sssd.conf
 chown root:root /etc/sssd/sssd.conf
 chmod 700 /etc/sssd/sssd.conf
 
