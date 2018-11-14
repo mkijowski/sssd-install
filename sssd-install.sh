@@ -28,5 +28,5 @@ apt update && apt install -y sssd
 #probably should make sure common-session layout is the same in 16.04 and 18.04
 cat ./common-session.ed | ed - /etc/pam.d/common-session
 
-service restart sssd
+service sssd restart
 
