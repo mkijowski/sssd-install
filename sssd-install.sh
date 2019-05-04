@@ -6,11 +6,25 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+# Must be in git directory
+if [ ! -f .sssd-install.sh ]; then
+   echo "This script must be run from the cloned git repo directory.
+   cd to this directory and execute again."
+   exit 1
+fi
+
 #fix /etc/skel
 mkdir /etc/skel/.ssh
+chmod 700 /etc/skel/.ssh
 touch /etc/skel/.ssh/authorized_keys
-echo "/home/$USER/.mk-ssh-key" >> /etc/skel/.bashrc
-cp ./mk-ssh-key.sh /etc/skel/.mk-ssh-key
+echo "
+if [ ! -f /home/$USER/.ssh/id_rsa ]; then
+    ssh-keygen -q -t rsa -f /home/$USER/.ssh/id_rsa -N ""
+    cat /home/$USER/.ssh/id_rsa.pub >> /home/$USER/.ssh/authorized_keys
+fi
+" >> /etc/skel/.bashrc
+cp /etc/skel/.bashrc /etc/skel/.bash_profile
+
 
 #check if group exists
 groupadd -g 100000 wsusers
