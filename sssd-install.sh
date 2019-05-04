@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SSSDCONF=/home/mkijowski/sssd.conf
+
 ##check if root
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root, exiting."
@@ -36,8 +38,8 @@ ln -sfb /bin/bash /bin/tcsh
 #check if dir exists
 mkdir -p /etc/sssd
 
-if [ -f /home/conf/sssd.conf ]; then
-    cp /home/conf/sssd.conf /etc/sssd/sssd.conf
+if [ -f $SSSDCONF ]; then
+    cp $SSSDCONF /etc/sssd/sssd.conf
 else
     echo "No sssd.conf found, creating blank file for permissions"
     touch /etc/sssd/sssd.conf
@@ -54,4 +56,5 @@ apt update && apt install -y sssd
 cat ./common-session.ed | ed - /etc/pam.d/common-session
 
 service sssd restart
-
+service ssh restart
+service sshd restart
