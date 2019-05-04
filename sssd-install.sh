@@ -43,6 +43,9 @@ else
     touch /etc/sssd/sssd.conf
 fi
 
+cp ./ssh_config  /etc/ssh/ssh_config
+cp ./sshd_config /etc/ssh/sshd_config
+
 chown root:root /etc/sssd/sssd.conf
 chmod 700 /etc/sssd/sssd.conf
 
