@@ -9,7 +9,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Must be in git directory
-if [ ! -f .sssd-install.sh ]; then
+if [ ! -f sssd-install.sh ]; then
    echo "This script must be run from the cloned git repo directory.
    cd to this directory and execute again."
    exit 1
